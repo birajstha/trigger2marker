@@ -53,8 +53,8 @@
 
 <style>
   .panel {
-    background: #0d1f2d;
-    border: 1px solid #1a3a55;
+    background: var(--surface-1);
+    border: 1px solid var(--border-color);
     border-radius: 0.75rem;
     padding: 0.9rem 1.4rem;
     max-width: 720px;
@@ -78,13 +78,13 @@
     font-size: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.09em;
-    color: #8899aa;
+    color: var(--text-secondary);
   }
 
   .trigger-val {
     font-size: 1.7rem;
     font-weight: 700;
-    color: #e2e8f0;
+    color: var(--text-primary);
     line-height: 1;
     font-variant-numeric: tabular-nums;
   }
@@ -106,7 +106,7 @@
   .bit-num {
     font-size: 0.5rem;
     font-family: monospace;
-    color: #8899aa;
+    color: var(--text-secondary);
     line-height: 1;
   }
 
@@ -120,8 +120,8 @@
     font-family: monospace;
     font-size: 0.8rem;
     font-weight: 700;
-    background: #1a3a55;
-    color: #8899aa;
+    background: var(--surface-2);
+    color: var(--text-secondary);
     flex-shrink: 0;
   }
 
@@ -141,7 +141,7 @@
     align-items: center;
     gap: 6px;
     font-size: 0.8rem;
-    color: #c8d8e8;
+    color: var(--text-primary);
   }
 
   .dot {
@@ -168,9 +168,9 @@
   }
 
   .mbadge {
-    background: rgba(58, 123, 213, 0.15);
-    border: 1px solid rgba(58, 123, 213, 0.35);
-    color: #5a9df5;
+    background: color-mix(in srgb, var(--accent) 16%, transparent);
+    border: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    color: var(--accent-hover);
     border-radius: 20px;
     padding: 3px 14px;
     font-size: 0.85rem;
@@ -178,7 +178,7 @@
   }
 
   .empty {
-    color: #8899aa;
+    color: var(--text-secondary);
     font-size: 0.85rem;
   }
 </style>

@@ -2,20 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --bg-primary: #060d14;
+  --surface-1: #0d1f2d;
+  --surface-2: #0f2a3d;
+  --text-primary: #e2e8f0;
+  --text-secondary: #8899aa;
+  --border-color: #1a3a55;
+  --accent: #3a7bd5;
+  --accent-hover: #5a9df5;
+}
+
+:root[data-theme='light'] {
+  --bg-primary: #f5f8fc;
+  --surface-1: #ffffff;
+  --surface-2: #e8eef7;
+  --text-primary: #0f1f31;
+  --text-secondary: #4f6278;
+  --border-color: #c9d8ea;
+  --accent: #2d6ec7;
+  --accent-hover: #4a8be2;
+}
+
 @layer base {
   body {
-    @apply m-0 bg-[#060d14] text-[#e2e8f0];
+    @apply m-0;
+    background: var(--bg-primary);
+    color: var(--text-primary);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     line-height: 1.6;
   }
 
   a {
-    color: #3a7bd5;
+    color: var(--accent);
     text-decoration: none;
   }
 
   a:hover {
-    color: #5a9df5;
+    color: var(--accent-hover);
   }
 }
 
@@ -50,18 +74,21 @@
 
   .table th,
   .table td {
-    @apply border border-[#1a3a55] text-center align-middle whitespace-nowrap;
+    @apply border text-center align-middle whitespace-nowrap;
+    border-color: var(--border-color);
     font-size: 90%;
     padding: 0.5rem;
   }
 
   .table-bordered th,
   .table-bordered td {
-    @apply border border-[#1a3a55];
+    @apply border;
+    border-color: var(--border-color);
   }
 
   .table-dark {
-    @apply bg-[#1a3a55] text-white;
+    background: var(--surface-2);
+    color: var(--text-primary);
   }
 
   .alert {
@@ -69,7 +96,8 @@
   }
 
   .alert-info {
-    @apply bg-[rgba(58,123,213,0.10)] border-[rgba(58,123,213,0.25)] text-[#8899aa];
+    @apply bg-[rgba(58,123,213,0.10)] border-[rgba(58,123,213,0.25)];
+    color: var(--text-secondary);
   }
 
   .alert-link {
@@ -78,7 +106,7 @@
 
   .btn {
     @apply inline-block px-3 py-2 rounded border border-transparent cursor-pointer;
-    color: #e2e8f0;
+    color: var(--text-primary);
   }
 
   .btn-primary {
@@ -90,11 +118,17 @@
   }
 
   .form-control {
-    @apply w-full rounded border border-[#1a3a55] px-3 py-2 bg-[#060d14] text-[#e2e8f0];
+    @apply w-full rounded border px-3 py-2;
+    border-color: var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
   }
 
   .form-select {
-    @apply rounded border border-[#1a3a55] px-3 py-2 bg-[#060d14] text-[#e2e8f0];
+    @apply rounded border px-3 py-2;
+    border-color: var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-primary);
   }
 
   .badge {
@@ -110,7 +144,7 @@
   }
 
   .bg-light {
-    @apply bg-[#0d1f2d];
+    background: var(--surface-1);
   }
 
   .h5 {
@@ -157,14 +191,14 @@ h2 {
 .grid-heading {
   font-size: 1rem;
   font-weight: 600;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin-bottom: 0.3rem;
   letter-spacing: 0.01em;
 }
 
 .grid-subtitle {
   font-size: 0.72rem;
-  color: #8899aa;
+  color: var(--text-secondary);
   margin-bottom: 0.4rem;
   letter-spacing: 0.02em;
 }
@@ -174,7 +208,7 @@ h5 {
 }
 
 .text-slate-600 {
-  color: #8899aa;
+  color: var(--text-secondary);
 }
 
 .text-center {
@@ -186,7 +220,7 @@ h5 {
 }
 
 .border {
-  border-color: #1a3a55 !important;
+  border-color: var(--border-color) !important;
 }
 
 .rounded {
@@ -217,11 +251,11 @@ input[type='checkbox'] {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  border: 1px solid #1a3a55;
+  border: 1px solid var(--border-color);
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color: #060d14;
+  background-color: var(--bg-primary);
 }
 
 input[type='checkbox']:checked {

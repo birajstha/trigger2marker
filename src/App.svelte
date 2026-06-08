@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from 'svelte';
   import { computeBitGroups, computeMarkerValues, validateMarkers, countValidOneToOne } from './lib/decoder.js';
   import DecoderForm from './components/DecoderForm.svelte';
   import BitMaskTable from './components/BitMaskTable.svelte';
@@ -14,6 +15,14 @@
   let detailTrigger = null;
   let showCopyright = false;
   let useFullType = false;
+  let theme = 'dark';
+
+  onMount(() => {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    theme = stored || (prefersDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', theme);
+  });
 
   function handleUpdate(e) {
     const { enabled, types, useFullType: uf } = e.detail;
@@ -42,13 +51,33 @@
     showCopyright = !showCopyright;
   }
 
+  function toggleTheme() {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }
+
   $: oneToOneCount = countValidOneToOne(validated);
   $: duplicateCount = Object.values(validated).filter((v) => v.duplicate === 1).length;
 </script>
 
 <div class="max-w-6xl mx-auto px-4">
   <div class="mb-5 pt-6">
-    <h1 class="text-3xl font-bold tracking-tight mb-2">TRIGGER2MARKER</h1>
+    <div class="top-row">
+      <h1 class="text-3xl font-bold tracking-tight mb-2">TRIGGER2MARKER</h1>
+      <button class="theme-toggle-btn" type="button" aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} on:click={toggleTheme}>
+        {#if theme === 'dark'}
+          <svg viewBox="0 0 24 24" class="theme-icon" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+        {:else}
+          <svg viewBox="0 0 24 24" class="theme-icon" fill="currentColor" aria-hidden="true">
+            <path d="M20.354 15.354A9 9 0 018.646 3.646 9 9 0 1012 21a8.96 8.96 0 008.354-5.646z"></path>
+          </svg>
+        {/if}
+      </button>
+    </div>
     <p class="text-slate-600 mb-3">
       Interactive tool to display the mapping between 8-bit trigger codes and markers for different Digital Port Settings (actiCHamp amplifier family).
     </p>
@@ -137,3 +166,36 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     </div>
   {/if}
 </div>
+
+<style>
+  .top-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .theme-toggle-btn {
+    height: 36px;
+    width: 36px;
+    border-radius: 999px;
+    border: 1px solid var(--border-color);
+    background: var(--surface-2);
+    color: var(--text-primary);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .theme-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media (max-width: 640px) {
+    .top-row {
+      align-items: flex-start;
+    }
+  }
+</style>
